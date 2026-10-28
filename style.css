@@ -95,6 +95,9 @@ main {
 .s2 { background: var(--c-correct); }
 
 .hint { color: var(--muted); font-size: 0.85rem; }
+.opener { margin: 0.75rem 0 0; }
+.opener[hidden] { display: none; }
+.opener button { font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.7rem; }
 .chip { color: var(--c-on-hint); padding: 0 0.35rem; border-radius: 3px; }
 .actions { display: flex; gap: 0.5rem; }
 .status { min-height: 1.2em; font-weight: 600; }

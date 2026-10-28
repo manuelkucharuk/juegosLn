@@ -3,6 +3,8 @@
 
 const TOP = 5;
 const CYCLE = { 0: 2, 2: 1, 1: 0 }; // gris → celeste → amarillo → gris
+// Mejor apertura por cantidad de letras (máxima entropía, calculada con tools/build_words.py)
+const BEST_OPENER = { 5: "cares", 6: "coreas", 7: "retinas" };
 
 const state = {
   n: 5,
@@ -164,9 +166,16 @@ function renderLetters() {
   panel.append(bs);
 }
 
+function renderOpener() {
+  const el = $("opener");
+  el.hidden = state.history.length > 0;
+  el.querySelector("button").textContent = BEST_OPENER[state.n];
+}
+
 function render() {
   renderBoard();
   renderLetters();
+  renderOpener();
   $("status").textContent = "";
 }
 
@@ -261,6 +270,7 @@ $("mobile-input").addEventListener("input", (e) => {
   e.target.value = "";
 });
 
+$("opener").querySelector("button").addEventListener("click", () => setWord(BEST_OPENER[state.n]));
 $("accept").addEventListener("click", accept);
 $("reset").addEventListener("click", reset);
 document.querySelectorAll(".mode").forEach((b) => b.addEventListener("click", () => setMode(+b.dataset.n)));
