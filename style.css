@@ -1,8 +1,9 @@
 :root {
-  /* Colores de las pistas (reemplazar por los definitivos) */
-  --c-correct: #4fb3e8;
-  --c-present: #e9c046;
-  --c-absent: #787c7e;
+  /* Colores de las pistas */
+  --c-correct: #97c7ff;
+  --c-present: #ecb535;
+  --c-absent: #cccccc;
+  --c-on-hint: #1c1f24;
 
   --bg: #f6f7f9;
   --panel: #ffffff;
@@ -87,14 +88,14 @@ main {
   background: var(--panel);
   user-select: none;
 }
-.tile.filled { cursor: pointer; color: #fff; border-color: transparent; }
+.tile.filled { cursor: pointer; color: var(--c-on-hint); border-color: transparent; }
 .tile.cursor { border-color: var(--muted); }
 .s0 { background: var(--c-absent); }
 .s1 { background: var(--c-present); }
 .s2 { background: var(--c-correct); }
 
 .hint { color: var(--muted); font-size: 0.85rem; }
-.chip { color: #fff; padding: 0 0.35rem; border-radius: 3px; }
+.chip { color: var(--c-on-hint); padding: 0 0.35rem; border-radius: 3px; }
 .actions { display: flex; gap: 0.5rem; }
 .status { min-height: 1.2em; font-weight: 600; }
 .mobile-input { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; }
@@ -111,7 +112,7 @@ main {
   font-weight: 700;
   text-transform: uppercase;
 }
-.key.s0, .key.s1, .key.s2 { color: #fff; border-color: transparent; }
+.key.s0, .key.s1, .key.s2 { color: var(--c-on-hint); border-color: transparent; }
 .key.backspace { margin-top: 0.75rem; }
 
 /* Resultados */
