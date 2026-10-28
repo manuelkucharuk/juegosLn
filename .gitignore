@@ -1,0 +1,5 @@
+__pycache__/
+.venv/
+*.pyc
+# Descargas temporales para generar words.js
+tools/downloads/
