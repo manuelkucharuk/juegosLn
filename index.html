@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resolvedor Wordle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Resolvedor Wordle</h1>
+    <div class="modes" role="radiogroup" aria-label="Cantidad de letras">
+      <button data-n="5" class="mode">5</button>
+      <button data-n="6" class="mode">6</button>
+      <button data-n="7" class="mode">7</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="play">
+      <div id="board" class="board"></div>
+      <p class="hint">Escribí la palabra y hacé click en cada letra para cambiar su color
+        (<span class="chip s0">gris</span> → <span class="chip s2">celeste</span> → <span class="chip s1">amarillo</span>).</p>
+      <div class="actions">
+        <button id="accept" class="primary">Aceptar</button>
+        <button id="reset">Reset</button>
+      </div>
+      <p id="status" class="status"></p>
+      <input id="mobile-input" class="mobile-input" autocomplete="off" autocapitalize="none" aria-label="Escribir letra">
+    </section>
+
+    <aside id="letters" class="letters"></aside>
+
+    <section class="results">
+      <p id="count" class="count"></p>
+      <div id="progress" class="progress" hidden><div></div></div>
+      <div class="tables">
+        <div>
+          <h2>Más probables</h2>
+          <table id="probable"></table>
+        </div>
+        <div>
+          <h2>Recomendadas</h2>
+          <table id="best"></table>
+        </div>
+        <div>
+          <h2>Recomendadas entre candidatas</h2>
+          <table id="best-candidates"></table>
+        </div>
+      </div>
+      <p class="legend"><b>Prob.</b>: probabilidad de ser la solución ·
+        <b>Bits</b>: información esperada (entropía de Shannon) ·
+        <b>Restan</b>: promedio de candidatas que quedarían.</p>
+    </section>
+  </main>
+
+  <script src="words.js"></script>
+  <script src="solver.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
