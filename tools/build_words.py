@@ -3,9 +3,12 @@ más los listados del primer turno precomputados (el cálculo más caro).
 
 Uso:
     python -m pip install wordfreq numpy
-    python tools/build_words.py ruta/a/spanish_words.json
+    python tools/build_words.py ruta/a/index.dic
 
-spanish_words.json: lista de palabras de https://unpkg.com/an-array-of-spanish-words@2.0.0/index.json
+index.dic: diccionario Hunspell español de https://unpkg.com/dictionary-es@4.0.0/index.dic
+Solo se usan las entradas con marcas de afijo ("casa/S", "cantar/RED"): son formas
+base (singular, masculino, infinitivo). Las entradas sin marcas son en su mayoría
+conjugaciones irregulares o formas con enclíticos ("puede", "dales"), y se descartan.
 """
 import json
 import math
@@ -15,7 +18,7 @@ import unicodedata
 from pathlib import Path
 
 import numpy as np
-from wordfreq import top_n_list, zipf_frequency
+from wordfreq import zipf_frequency
 
 LENGTHS = (5, 6, 7)
 MAX_PER_LENGTH = 10000
@@ -39,21 +42,26 @@ def prior(zipf):
     return 1 / (1 + math.exp(-(zipf - PRIOR_CENTER) * PRIOR_SCALE))
 
 
-def build_vocab(dictionary):
+def read_lemmas(dic_path):
+    """Formas base del .dic de Hunspell: entradas con marcas de afijo, en minúscula."""
+    lines = Path(dic_path).read_text(encoding="utf-8").splitlines()[1:]
+    return {stem for stem, sep, _ in (line.partition("/") for line in lines) if sep and stem.islower()}
+
+
+def build_vocab(lemmas):
     vocab = {n: {} for n in LENGTHS}
-    for raw in top_n_list("es", 300000):
-        if raw not in dictionary:
-            continue
+    for raw in lemmas:
         word = normalize(raw)
         if len(word) not in vocab or not VALID.match(word):
             continue
-        # Variantes que colapsan al quitar tildes (ej. "esta"/"está") suman frecuencia.
+        # Variantes que colapsan al quitar tildes (ej. "papa"/"papá") suman frecuencia.
+        # Las palabras que wordfreq no conoce quedan con frecuencia mínima.
         freq = 10 ** zipf_frequency(raw, "es")
         bucket = vocab[len(word)]
         bucket[word] = bucket.get(word, 0) + freq
     result = {}
     for n, bucket in vocab.items():
-        ranked = sorted(bucket.items(), key=lambda kv: -kv[1])[:MAX_PER_LENGTH]
+        ranked = sorted(bucket.items(), key=lambda kv: (-kv[1], kv[0]))[:MAX_PER_LENGTH]
         result[n] = [(w, round(math.log10(f), 2)) for w, f in ranked]
     return result
 
@@ -103,8 +111,7 @@ def row(words, i, weights, bits, remaining):
 
 
 def main():
-    dictionary = set(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")))
-    vocab = build_vocab(dictionary)
+    vocab = build_vocab(read_lemmas(sys.argv[1]))
     out_words, openers = {}, {}
     for n in LENGTHS:
         words = [w for w, _ in vocab[n]]
