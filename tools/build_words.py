@@ -43,9 +43,14 @@ def prior(zipf):
 
 
 def read_lemmas(dic_path):
-    """Formas base del .dic de Hunspell: entradas con marcas de afijo, en minúscula."""
+    """Formas base del .dic de Hunspell (entradas con marcas de afijo, en minúscula)
+    más la lista revisada a mano de tools/extra_words.txt."""
     lines = Path(dic_path).read_text(encoding="utf-8").splitlines()[1:]
-    return {stem for stem, sep, _ in (line.partition("/") for line in lines) if sep and stem.islower()}
+    lemmas = {stem for stem, sep, _ in (line.partition("/") for line in lines) if sep and stem.islower()}
+    extra = Path(__file__).with_name("extra_words.txt").read_text(encoding="utf-8")
+    for line in extra.splitlines():
+        lemmas.update(line.split("#")[0].split())
+    return lemmas
 
 
 def build_vocab(lemmas):
