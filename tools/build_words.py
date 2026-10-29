@@ -3,12 +3,13 @@ más los listados del primer turno precomputados (el cálculo más caro).
 
 Uso:
     python -m pip install wordfreq numpy
-    python tools/build_words.py ruta/a/index.dic
+    python tools/build_words.py ruta/a/lemario.txt
 
-index.dic: diccionario Hunspell español de https://unpkg.com/dictionary-es@4.0.0/index.dic
-Solo se usan las entradas con marcas de afijo ("casa/S", "cantar/RED"): son formas
-base (singular, masculino, infinitivo). Las entradas sin marcas son en su mayoría
-conjugaciones irregulares o formas con enclíticos ("puede", "dales"), y se descartan.
+lemario.txt: lemario del DLE de la RAE (edición 23.8.1), de
+https://raw.githubusercontent.com/rubenperezm/ListadosPalabrasRAE/main/23-8-1.txt
+Contiene solo lemas (singular, masculino, infinitivo): sin plurales ni conjugaciones.
+Se descartan locuciones, afijos y nombres propios. tools/extra_words.txt agrega
+palabras a mano.
 """
 import json
 import math
@@ -21,7 +22,7 @@ import numpy as np
 from wordfreq import zipf_frequency
 
 LENGTHS = (5, 6, 7)
-MAX_PER_LENGTH = 10000
+MAX_PER_LENGTH = 20000
 TOP = 5
 # Debe coincidir con solver.js
 PRIOR_CENTER = 3.0
@@ -42,11 +43,10 @@ def prior(zipf):
     return 1 / (1 + math.exp(-(zipf - PRIOR_CENTER) * PRIOR_SCALE))
 
 
-def read_lemmas(dic_path):
-    """Formas base del .dic de Hunspell (entradas con marcas de afijo, en minúscula)
-    más la lista revisada a mano de tools/extra_words.txt."""
-    lines = Path(dic_path).read_text(encoding="utf-8").splitlines()[1:]
-    lemmas = {stem for stem, sep, _ in (line.partition("/") for line in lines) if sep and stem.islower()}
+def read_lemmas(lemario_path):
+    """Lemas de una sola palabra en minúscula del lemario de la RAE, más tools/extra_words.txt."""
+    lines = Path(lemario_path).read_text(encoding="utf-8").splitlines()
+    lemmas = {line.strip() for line in lines if line.strip().isalpha() and line.strip().islower()}
     extra = Path(__file__).with_name("extra_words.txt").read_text(encoding="utf-8")
     for line in extra.splitlines():
         lemmas.update(line.split("#")[0].split())

@@ -1,42 +1,4 @@
-# Palabras válidas que el .dic de Hunspell tiene SIN marcas de afijo y por eso
-# build_words.py no toma de forma automática (ahí se mezclan con conjugaciones
-# irregulares y enclíticos como "puede" o "dales").
-# Lista revisada a mano: formas base, sin plurales ni verbos conjugados.
+# Palabras que se agregan a mano al vocabulario, además del lemario de la RAE.
+# Usar para palabras que falten. Solo formas base: sin plurales ni verbos conjugados.
 # Una palabra por línea (o varias separadas por espacio); "#" inicia un comentario.
-# Agregar o borrar palabras acá y volver a correr build_words.py.
-
-# Adverbios, preposiciones, conjunciones e interjecciones
-desde hasta donde nunca aunque luego según hacia dentro todavía encima arriba
-abajo apenas debajo acaso anoche contigo conmigo consigo entre ahora siempre
-después menos durante además fuera demás lejos atrás quizás jamás detrás quizá
-recién delante ojalá gratis adrede deprisa aprisa antaño hogaño antier adonde
-doquier empero cuasi versus ahorita allende aquende acullá otrora máxime avante
-consuno tampoco acerca caray jolín jolines pardiez cáspita hurra ambos sendos
-
-# Meses y días
-enero febrero marzo junio octubre lunes jueves
-
-# Infinitivos
-estar jugar abolir podrir henchir trapear yantar
-
-# Sustantivos y adjetivos
-orden destino régimen virus autobús récord déficit recinto estatus jersey debut
-islam canon judas predio corpus mesías semen complot saudí confort hindú hindi
-condón nazismo eslogan fénix ratio cactus desuso polen tórax náhuatl ímpetu
-níquel cabaret módem termas lupus nupcias caries desamor látex mecenas carey
-prelado impar beige mamut kelvin mánager humus míster barman lapsus bíceps
-zenit cenit pívot flúor tifus médium yoruba tótem zigzag fauces bidón aplomo
-claxon réquiem harem polonio amago bruces ficus chárter ángelus sílex nones
-sefardí nazarí pudin ambages accésit liquen ínter dolmen córtex vanadio baobab
-facies menda xenón ántrax tríceps empeine tedeum galio espray radón tictac
-hiyab rictus sidecar vivac bórax anión hioides manazas tabes repelús regato
-kermes herraje acimut osmio rebato mihrab negus esprint cambray fueloil mildiu
-taray balay cóccix mágnum retorta rosbif gnomon torques fasces pimpón farad
-cardias muguet samuray frufrú puches penates pacay máximum nabab nonius querube
-jugada norte oeste noreste crisis tesis tenis estrés énfasis atlas génesis oasis
-éxtasis brindis víveres chasis praxis bilis pelvis equis recelo sífilis morse
-exprés añicos cutis hachís psiquis adonis desvelo némesis croquis pubis mantis
-colitis tétanos frontis dermis burdeos gules mentís otitis ósmosis lisis raquis
-rinitis elipsis micosis coxis fimosis ascitis gneis trole litis glotis tisis
-pinole mímesis desmán chotis cifosis finolis pirosis miosis premamá amnios macis
-deixis unguis ananá sicosis
+# Después de editar, volver a correr build_words.py.

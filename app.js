@@ -4,7 +4,7 @@
 const TOP = 5;
 const CYCLE = { 0: 2, 2: 1, 1: 0 }; // gris → celeste → amarillo → gris
 // Mejor apertura por cantidad de letras (máxima entropía, calculada con tools/build_words.py)
-const BEST_OPENER = { 5: "careo", 6: "cerita", 7: "cetrino" };
+const BEST_OPENER = { 5: "careo", 6: "careto", 7: "cetrino" };
 
 const state = {
   n: 5,
