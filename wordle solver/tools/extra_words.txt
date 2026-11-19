@@ -1,0 +1,4 @@
+# Palabras que se agregan a mano al vocabulario, además del lemario de la RAE.
+# Usar para palabras que falten. Solo formas base: sin plurales ni verbos conjugados.
+# Una palabra por línea (o varias separadas por espacio); "#" inicia un comentario.
+# Después de editar, volver a correr build_words.py.
