@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juegos LN</title>
+  <meta name="description" content="Resolvedores para los juegos de La Nación: Panal, Wordle y Circuitos.">
+  <style>
+    :root {
+      --bg: #f5f6f8; --panel: #ffffff; --fg: #1d2230; --muted: #5d6577; --line: #d9dde5;
+      --panal: #dde01f; --wordle: #4fb6d6; --circuitos: #e8296f;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #14161c; --panel: #1c1f27; --fg: #e8eaf0; --muted: #9aa1b2; --line: #323745; color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #14161c; --panel: #1c1f27; --fg: #e8eaf0; --muted: #9aa1b2; --line: #323745; color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.5;
+      padding: 48px 16px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    header { margin-bottom: 32px; }
+    h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 40px); letter-spacing: -.02em; }
+    header p { margin: 0; color: var(--muted); }
+    .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; }
+    .card {
+      display: flex; flex-direction: column; gap: 12px; padding: 22px;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+      color: inherit; text-decoration: none; position: relative; overflow: hidden;
+      transition: transform .15s, border-color .15s, box-shadow .15s;
+    }
+    .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 5px; background: var(--c); }
+    .card:hover { transform: translateY(-3px); border-color: var(--c); box-shadow: 0 8px 24px rgb(0 0 0 / .08); }
+    .card:focus-visible { outline: 3px solid var(--c); outline-offset: 3px; }
+    .icon { width: 56px; height: 56px; }
+    .card h2 { margin: 0; font-size: 20px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14.5px; flex: 1; }
+    .go { font-weight: 600; font-size: 14px; }
+    .go::after { content: " →"; }
+    .panal { --c: var(--panal); }
+    .wordle { --c: var(--wordle); }
+    .circuitos { --c: var(--circuitos); }
+    footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+    @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Juegos LN</h1>
+      <p>Elegí qué juego querés resolver.</p>
+    </header>
+
+    <main class="games">
+      <a class="card panal" href="panal/index.html">
+        <svg class="icon" viewBox="0 0 56 56" aria-hidden="true">
+          <g stroke="var(--bg)" stroke-width="2">
+            <polygon points="28,4 40,11 40,25 28,32 16,25 16,11" fill="var(--line)"/>
+            <polygon points="16,25 28,32 28,46 16,53 4,46 4,32" fill="var(--line)"/>
+            <polygon points="40,25 52,32 52,46 40,53 28,46 28,32" fill="var(--panal)"/>
+          </g>
+        </svg>
+        <h2>Panal</h2>
+        <p>Pegá la imagen del panal y obtené todas las palabras posibles, con los superpacks destacados.</p>
+        <span class="go">Jugar</span>
+      </a>
+
+      <a class="card wordle" href="wordle%20solver/index.html">
+        <svg class="icon" viewBox="0 0 56 56" aria-hidden="true">
+          <rect x="2" y="16" width="15" height="15" rx="3" fill="var(--line)"/>
+          <rect x="20.5" y="16" width="15" height="15" rx="3" fill="var(--wordle)"/>
+          <rect x="39" y="16" width="15" height="15" rx="3" fill="#e5c33a"/>
+          <rect x="2" y="35" width="15" height="15" rx="3" fill="var(--wordle)"/>
+          <rect x="20.5" y="35" width="15" height="15" rx="3" fill="var(--wordle)"/>
+          <rect x="39" y="35" width="15" height="15" rx="3" fill="var(--wordle)"/>
+        </svg>
+        <h2>Wordle</h2>
+        <p>Cargá tus intentos y te sugiere las mejores palabras según la información esperada. 5, 6 o 7 letras.</p>
+        <span class="go">Jugar</span>
+      </a>
+
+      <a class="card circuitos" href="circuitos/circuitos.html">
+        <svg class="icon" viewBox="0 0 56 56" aria-hidden="true">
+          <path d="M10 10 H28 V28 H46 V46" fill="none" stroke="var(--circuitos)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 46 H22 V36" fill="none" stroke="var(--wordle)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="10" r="6" fill="var(--circuitos)"/><circle cx="46" cy="46" r="6" fill="var(--circuitos)"/>
+          <circle cx="10" cy="46" r="6" fill="var(--wordle)"/><circle cx="22" cy="36" r="6" fill="var(--wordle)"/>
+        </svg>
+        <h2>Circuitos</h2>
+        <p>Pegá un screenshot del tablero y te devuelvo la solución, con el tablero detectado editable.</p>
+        <span class="go">Jugar</span>
+      </a>
+    </main>
+
+    <footer>Todo corre en tu navegador; las imágenes no se suben a ningún lado.</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;font-weight:400" title="Volver a Juegos">←</a> Panal</h1>
+  </header>
+
+  <main>
+    <section class="play">
+      <div class="dropzone" id="dropzone">
+        <img id="preview" alt="Imagen pegada" hidden>
+        <p>Pegá la imagen del panal con <strong>Ctrl+V</strong></p>
+        <label class="file-button">
+          <input type="file" id="file" accept="image/*">
+          o elegí un archivo
+        </label>
+      </div>
+      <p class="status" id="status" role="status"></p>
+
+      <div class="hive" id="hive">
+        <div class="hive-row">
+          <input class="hex" data-cell="0" maxlength="2" autocomplete="off" aria-label="Letra arriba a la izquierda">
+          <input class="hex" data-cell="1" maxlength="2" autocomplete="off" aria-label="Letra arriba a la derecha">
+        </div>
+        <div class="hive-row">
+          <input class="hex" data-cell="5" maxlength="2" autocomplete="off" aria-label="Letra a la izquierda">
+          <input class="hex center" data-cell="c" maxlength="2" autocomplete="off" aria-label="Letra central">
+          <input class="hex" data-cell="2" maxlength="2" autocomplete="off" aria-label="Letra a la derecha">
+        </div>
+        <div class="hive-row">
+          <input class="hex" data-cell="4" maxlength="2" autocomplete="off" aria-label="Letra abajo a la izquierda">
+          <input class="hex" data-cell="3" maxlength="2" autocomplete="off" aria-label="Letra abajo a la derecha">
+        </div>
+      </div>
+      <p class="hint">Si alguna letra salió mal, hacé clic en la celda y corregila.</p>
+    </section>
+
+    <section class="results">
+      <p class="count" id="summary"></p>
+      <div id="groups"></div>
+    </section>
+  </main>
+
+  <script src="listado-general.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
